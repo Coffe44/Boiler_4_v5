@@ -13,7 +13,7 @@ public class Main {
         {
             try
             {
-                Thread.sleep(2000);
+                Thread.sleep(2000); // set to < 1000 to not get timeout
             }
             catch (Exception e){}
             return 42;
