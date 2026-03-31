@@ -10,7 +10,7 @@ public class Player
         this.name = name;
     }
 
-    public void takeDamage(int damage)
+    public synchronized void takeDamage(int damage)
     {
         int currentHealth = health;
 
