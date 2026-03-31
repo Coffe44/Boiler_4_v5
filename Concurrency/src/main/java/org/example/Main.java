@@ -4,12 +4,12 @@ public class Main {
     static void main() throws InterruptedException {
         Player p = new Player("Boss");
 
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 200; i++)
         {
             int x = i;
             new Thread(() ->
             {
-                p.takeDamage(10);
+                p.takeDamage(2);
                 System.out.println("X " + x);
             }).start();
 
