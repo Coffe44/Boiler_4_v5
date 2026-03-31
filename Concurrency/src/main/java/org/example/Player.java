@@ -10,9 +10,13 @@ public class Player
         this.name = name;
     }
 
-    public void  takeDamage(int damage)
+    public void takeDamage(int damage)
     {
-        health -= damage;
+        int currentHealth = health;
+
+        try { Thread.sleep(1); } catch (Exception _){}
+
+        health = currentHealth - damage;
     }
 
     public  String getName()
