@@ -3,28 +3,26 @@ package org.example;
 import java.util.concurrent.*;
 
 public class Main {
-    static void main() throws InterruptedException {
+    static void main() throws InterruptedException
+    {
+        int loops = 100;
+
         Player p = new Player("Boss");
+        AttackLog l = new AttackLog();
 
         ExecutorService pool = Executors.newFixedThreadPool(5);
 
-        for (int i = 0; i < 200; i++)
+        for (int i = 0; i < loops; i++)
         {
-            int x = i;
-            pool.submit(() ->
-            {
-                p.takeDamage(2);
-                System.out.println("X " + x);
-            });
-
-            System.out.println("loop " + i);
+            int id = i;
+            pool.submit(() -> l.log("Attack " + id));
         }
 
         pool.shutdown();
         pool.awaitTermination(5, TimeUnit.SECONDS);
 
-        Thread.sleep(1000);
-
-        System.out.println(p.getHealth());
+        System.out.println("expected " + loops);
+        System.out.println("actual " + l.getAttacks().size());
+        System.out.println(l.getAttacks());
     }
 }
