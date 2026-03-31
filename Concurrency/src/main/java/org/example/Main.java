@@ -7,41 +7,33 @@ import java.util.concurrent.*;
 public class Main {
     static void main() throws InterruptedException
     {
-        int loops = 50;
-        ExecutorService pool = Executors.newFixedThreadPool(10);
+        ExecutorService executor = Executors.newFixedThreadPool(2);
 
-        Player boss = new Player("Boss");
-        List<Future<Integer>> attacks = new ArrayList<>();
-
-        for (int i = 0; i < loops; i++)
-        {
-            attacks.add
-                    (
-                            pool.submit(() ->
-                            {
-                                int damage = 2;
-                                boss.takeDamage(damage);
-                                return damage;
-                            })
-                    );
-        }
-
-        int totalDamage = 0;
-
-        for (Future<Integer> future : attacks)
+        Future<Integer> results = executor.submit(() ->
         {
             try
             {
-                totalDamage += future.get();
-                } catch (Exception e)
-            {
-                e.printStackTrace();
+                Thread.sleep(2000);
             }
+            catch (Exception e){}
+            return 42;
+        });
+
+        try
+        {
+            System.out.println("Waiting for results...");
+            Integer value = results.get(1,TimeUnit.SECONDS);
+            System.out.println("Result: " + value);
+        }
+        catch ( TimeoutException e)
+        {
+            System.out.println("Timeout");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
 
-        pool.shutdown();
-
-        System.out.println("Expected damage: " + totalDamage);
-        System.out.println("Boss's health: " + boss.getHealth());
+        executor.shutdown();
     }
 }
