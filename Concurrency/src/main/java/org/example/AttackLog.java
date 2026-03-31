@@ -1,11 +1,12 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AttackLog
 {
-    private List<String> attacks = new ArrayList<String>();
+    private final List<String> attacks = Collections.synchronizedList(new ArrayList<>());
 
     public void log(String message)
     {
