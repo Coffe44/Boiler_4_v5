@@ -1,14 +1,19 @@
 package org.example;
 
 public class Main {
-    static void main()
-    {
+    static void main() throws InterruptedException {
         Player p = new Player("Boss");
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 100; i++)
         {
-            p.takeDamage(10);
+            new Thread(() ->
+            {
+                p.takeDamage(10);
+            }).start();
+
         }
+
+        Thread.sleep(1000);
 
         System.out.println(p.getHealth());
     }
